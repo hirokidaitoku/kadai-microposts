@@ -17,10 +17,14 @@
       <li class="nav-item"><a href="<%= followings_user_path(@user) %>" class="nav-link <%= "active" if current_page?(followings_user_path(@user)) %>">Followings <span class="badge badge-secondary"><%= @count_followings %></span></a></li>
       <li class="nav-item"><a href="<%= followers_user_path(@user) %>" class="nav-link <%= "active" if current_page?(followers_user_path(@user)) %>">Followers <span class="badge badge-secondary"><%= @count_followers %></span></a></li>
     </ul>
-    <% if current_user.following?(@user) %>
+    <% if current_user == @user %>
       <%= render "users", users: @followers %>
     <% else %>
-      <p>閲覧するには、フォローしてください</p>
+      <% if current_user.following?(@user) %>
+        <%= render "users", users: @followers %>
+      <% else %>
+        <p>閲覧するには、フォローしてください</p>
+      <% end %>
     <% end %>
   </div>
 </div>
